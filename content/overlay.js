@@ -18,7 +18,8 @@ var bwindow = {
       var b =  gBrowser.getBrowserAtIndex(bwindow.cur);  
       b.focus();
       bwindow.bfind = b.webBrowserFind;
-      bwindow.bfind.searchString = "google";
+      bwindow.bfind.searchString = document.getElementById("search-tabs-text-box").value;
+      dump(document.getElementById("search-tabs-text-box").value);
     }
     try {
     var result = bwindow.bfind.findNext();
@@ -35,10 +36,10 @@ var bwindow = {
 }
 
 
-function runner(evt) {
-  if (evt.charCode === 97) { //a
-    bwindow.next();
-  }
-}
+// function runner(evt) {
+//  if (evt.charCode === 97) { //a
+//    bwindow.next();
+//  }
+//}
 
-window.addEventListener("keypress", runner, false);
+//window.addEventListener("keypress", runner, false);

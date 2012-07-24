@@ -11,13 +11,6 @@
     <em:creator>Vineeth Kashyap</em:creator>
     <!-- optional items -->
     <em:contributor>Suman SWM</em:contributor>
-    <em:contributor>Another one</em:contributor>
-    <em:homepageURL>http://kb.mozillazine.org/Getting_started_with_extension_development</em:homepageURL>
-    <!--em:optionsURL>chrome://sampleext/content/settings.xul</em:optionsURL>
-    <em:aboutURL>chrome://sampleext/content/about.xul</em:aboutURL>
-    <em:iconURL>chrome://sampleext/skin/mainicon.png</em:iconURL>
-    <em:updateURL>http://sampleextension.mozdev.org/update.rdf</em:updateURL-->
-
     <!-- Firefox -->
     <em:targetApplication>
       <Description>

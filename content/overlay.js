@@ -1,45 +1,54 @@
 
-var bwindow = {
+var SATO = {
+  debug: function(str) {
+    window.dump(str + "\n");
+  },
+
+  // total number of tabs
   num: 0,
   
+  // current tab index
   cur: 0,
+  
+  // finder object
+  finder: null, 
 
-  bfind: null, 
-
+  // highlight the next element
   next: function() {
-    bwindow.num = gBrowser.browsers.length; 
-    dump("calling next with: " + bwindow.cur + "of " + bwindow.num + "\n");
-    if (bwindow.cur >= bwindow.num) {
-      dump("resetting\n");
-      bwindow.cur = 0; // reset
+    // number of tabs might have changed, get the latest number
+    SATO.num = gBrowser.browsers.length; 
+
+    SATO.debug("calling next with: " + SATO.cur + "of " + SATO.num + "\n");
+    // if the current tab is overflowing, reset to the left-most tab
+    if (SATO.cur >= SATO.num) {
+      SATO.debug("resetting\n");
+      SATO.cur = 0; // reset
     }
-    if (!bwindow.bfind) {
-      dump("no bwindow.bfind\n");
-      var b =  gBrowser.getBrowserAtIndex(bwindow.cur);  
-      b.focus();
-      bwindow.bfind = b.webBrowserFind;
-      bwindow.bfind.searchString = document.getElementById("search-tabs-text-box").value;
-      dump(document.getElementById("search-tabs-text-box").value);
+
+    // cannot find a valid finder object
+    // so get one, and set the search string from the textbox
+    if (!SATO.finder) {
+      SATO.debug("no SATO.finder\n");
+      gBrowser.selectTabAtIndex(SATO.cur);
+      var b =  gBrowser.getBrowserAtIndex(SATO.cur);  
+      SATO.finder = b.webBrowserFind;
+      SATO.finder.searchString = document.getElementById("search-tabs-text-box").value;
+      SATO.debug(document.getElementById("search-tabs-text-box").value + " with " + SATO.finder);
     }
     try {
-    var result = bwindow.bfind.findNext();
+    var result = SATO.finder.findNext();
     } catch (e) {
+      SATO.debug("Exception");
+      SATO.finder = null;
       result = false;
     }
-    dump(result + "\n")
+    SATO.debug(result + "\n")
+    // could not find text, get the next one
     if (!result) {
-      dump("not found\n");
-      bwindow.cur += 1;
-      bwindow.bfind = null;
+      SATO.debug("not found\n");
+      SATO.cur += 1;
+      SATO.finder = null;
     }
   }
 }
 
-
-// function runner(evt) {
-//  if (evt.charCode === 97) { //a
-//    bwindow.next();
-//  }
-//}
-
-//window.addEventListener("keypress", runner, false);

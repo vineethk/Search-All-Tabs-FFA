@@ -7,7 +7,7 @@
   <textbox label="Search Item" id="search-tabs-text-box" 
   /> 
   <button id="search-tabs-button" 
-  onclick="bwindow.next();"
+  onclick="SATO.next();"
   />
   </statusbarpanel>
  </statusbar>

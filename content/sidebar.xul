@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<?xml-stylesheet href="chrome://global/skin/" type="text/css" ?>
+<?xml-stylesheet href="chrome://browser/skin/browser.css" type="text/css" ?>
+<!DOCTYPE page SYSTEM "chrome://helloworld/locale/overlay.dtd">
+
+
+<page id="sbEmptySidebar" title="&emptysidebar.title;" xmlns:html="http://www.w3.org/1999/xhtml"
+         xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul" >
+
+  <vbox>
+
+    <label value="Search for:" control="find-text"/>
+	<hbox>
+		<textbox id="search-tabs-text-box" label="Search Item"  /> 
+		<image id="search-tabs-button" src="images/search_16x16.png" style="cursor:pointer;" onclick="SATO.next();"/>
+	</hbox>
+	<description>Search for text across all tabs. Click on any of the results below to go to that tab.</description>
+	<button id="cancel-button" label="Cancel"/>
+	<splitter style="cursor:default;"/>
+
+	<vbox>
+		<hbox>A new sun rises, a new tab result here.</hbox>
+		<hbox>
+			<html:a href="http://yahoo.com/">Yahoo!</html:a>
+			<button id="Save page to evernote" label="evernote"/>
+		</hbox>
+	</vbox>
+	<vbox>
+		<hbox>Another star, another tab result here.</hbox>
+		<hbox>
+			<html:a href="http://google.com/">Google</html:a>
+			<button id="Save page to evernote" label="evernote"/>
+		</hbox>
+	</vbox>
+
+  </vbox>
+
+</page>

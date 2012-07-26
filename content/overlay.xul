@@ -1,14 +1,27 @@
 <?xml version="1.0"?>
-<overlay id="sample" 
+
+<!DOCTYPE overlay SYSTEM "chrome://helloworld/locale/overlay.dtd">
+<overlay id="emptySidebarOverlay"
          xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
- <script src="overlay.js"/>
- <statusbar id="status-bar">
-  <statusbarpanel id="search-all-tabs">
-  <textbox label="Search Item" id="search-tabs-text-box" 
-  /> 
-  <button id="search-tabs-button" 
-  onclick="SATO.next();"
-  />
-  </statusbarpanel>
- </statusbar>
+  <script src="overlay.js"/>
+  <menupopup id="viewSidebarMenu">
+    <menuitem key="key_openEmptySidebar" observes="viewEmptySidebar"  />
+  </menupopup>
+  
+  <keyset id="mainKeyset">
+    <key id="key_openEmptySidebar" command="viewEmptySidebar"
+         key="&openEmptySidebar.commandkey;" 
+         modifiers="&openEmptySidebar.modifierskey;" />
+  </keyset>
+  
+  <broadcasterset id="mainBroadcasterSet"> 
+    <broadcaster id="viewEmptySidebar" 
+                 label="&emptysidebar.title;"
+                 autoCheck="false"
+                 type="checkbox"
+                 group="sidebar"
+                 sidebarurl="chrome://helloworld/content/sidebar.xul"
+                 sidebartitle="&emptysidebar.title;"
+                 oncommand="toggleSidebar('viewEmptySidebar');" />
+  </broadcasterset>
 </overlay>

@@ -1,1 +1,4 @@
 <!ENTITY helloworld "Hello World!">
+<!ENTITY emptysidebar.title "Search All Tabs">
+<!ENTITY openEmptySidebar.commandkey "E">
+<!ENTITY openEmptySidebar.modifierskey "control alt">

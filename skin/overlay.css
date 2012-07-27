@@ -1,4 +1,13 @@
-/* This is just an example. You shouldn't do this. */
-menuitem#helloworld-hello {
-  color: red !important;
+/* Search box styling */
+#search-tabs-text-box {
+	padding: 5px;
+	min-width:120px;
+}
+
+.save-to-evernote {
+	cursor:pointer;
+}
+
+#searchSidebar {
+	min-width:250px;
 }

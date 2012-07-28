@@ -4,17 +4,21 @@
 <?xml-stylesheet href="chrome://helloworld/skin/overlay.css" type="text/css" ?>
 <!DOCTYPE page SYSTEM "chrome://helloworld/locale/overlay.dtd">
 
-
+<window>
 <page id="searchSidebar" title="&emptysidebar.title;" xmlns:html="http://www.w3.org/1999/xhtml"
          xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul" >
+	 <script src="overlay.js">
+	 </script>
     <vbox> 
 	   	<hbox>
 			<textbox id="search-tabs-text-box" label="Search Item"  /> 
-			<button id="search-all-tabs" image="images/search_16x16.png" onclick="SATO.next();" />
+			<button id="search-all-tabs" image="images/search_16x16.png" onclick="SATO.fillWithTabTitles();" />
 		</hbox>
 		<description>Search for text across all tabs. Click on any of the results below to go to that tab.</description>		
 	</vbox>
 	<splitter style="cursor:default;"/>
+	<p id="search-contents"> Search contents will appear here
+	</p>
 	<vbox>
 		<hbox>A new sun rises, a new tab result here.</hbox>
 		<hbox>
@@ -33,3 +37,4 @@
 	</vbox>
 
 </page>
+</window>

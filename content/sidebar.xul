@@ -12,7 +12,7 @@
     <vbox> 
 	   	<hbox>
 			<textbox id="search-tabs-text-box" label="Search Item"  /> 
-			<button id="search-all-tabs" image="images/search_16x16.png" onclick="SATO.fillWithTabTitles();" />
+			<button id="search-all-tabs" image="images/search_16x16.png" onclick="SATO.performSearch();" />
 		</hbox>
 		<description>Search for text across all tabs. Click on any of the results below to go to that tab.</description>		
 	</vbox>

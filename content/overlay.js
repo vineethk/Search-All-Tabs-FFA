@@ -56,6 +56,8 @@ var SATO = {
     return successTabs;
   },
   
+  // code modifed from this source:
+  // http://www.borngeek.com/2011/10/03/using-the-nsifind-interface/
   hasSearchItem: function(doc, searchStr) {
   // TODO: Note that in practice, we should do some error checking on
   // the following three variables to make sure they are really available

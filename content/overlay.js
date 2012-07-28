@@ -1,4 +1,3 @@
-
 // the Search All Tabs Object
 // used as a namespace, so that we don't create global variables
 var SATO = {
@@ -12,7 +11,7 @@ var SATO = {
     // 1. SATO.getTabIndicesWithSearchTerms will give an array of indices
     // 2. getGBrowser().getBrowserAtIndex(..) for each of those numbers will give browser elements
     //    one can call .contentDocument.title/location etc to get information about that tab
-    // 3. getGBrowser().getselectTabAtIndex(..) will go to that tab 
+    // 3. getGBrowser().selectTabAtIndex(..) will go to that tab 
   },
 
   // returns a gBrowser

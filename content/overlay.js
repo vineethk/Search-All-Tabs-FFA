@@ -6,10 +6,18 @@ var SATO = {
 
   fillWithTabTitles: function() {
     var searchElement = document.getElementById("search-tabs-text-box");
-    var alltitles = SATO.getAllTabTitles().join("; ");
-    window.dump("All titles = " + alltitles + "\n");
-    var foundTitles = SATO.getTabWithSearchTerms(searchElement.value).join("; ")
+    var allTitles = SATO.getAllTabTitles().join("\n ");
+    window.dump("All titles = " + allTitles + "\n");
+    var foundTitles = SATO.getTabWithSearchTerms(searchElement.value).join("\n ");
     window.dump("Search found titles = " + foundTitles + "\n");
+    var targetElement = document.getElementById("search-contents");
+    var allNode = document.createElement("p");
+    allNode.textContent = "All titles: " + allTitles;
+    var foundNode = document.createElement("p");
+    foundNode.textContent = "Found Titles: " + foundTitles;
+    targetElement.appendChild(allNode);
+    targetElement.appendChild(document.createElement("br"));
+    targetElement.appendChild(foundNode);
   },
 
   getGBrowser: function() {

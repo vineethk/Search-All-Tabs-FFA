@@ -6,6 +6,12 @@
   <menupopup id="viewSidebarMenu">
     <menuitem key="key_openEmptySidebar" observes="viewEmptySidebar"  />
   </menupopup>
+
+  <toolbox>
+    <toolbar id="nav-toolbar">
+      <toolbarbutton label="Search All Tabs"/>
+    </toolbar>
+  </toolbox>
   
   <keyset id="mainKeyset">
     <key id="key_openEmptySidebar" command="viewEmptySidebar"

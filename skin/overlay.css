@@ -11,3 +11,15 @@
 #searchSidebar {
 	min-width:250px;
 }
+
+.resultTabTitle {
+	display:block;
+	color: gray;
+	padding:5px;
+}
+
+.resultTabLocation {
+	display :block;
+	color: red;
+	padding:5px;
+}

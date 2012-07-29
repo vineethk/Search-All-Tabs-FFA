@@ -7,8 +7,7 @@
 <window>
 <page id="searchSidebar" title="&emptysidebar.title;" xmlns:html="http://www.w3.org/1999/xhtml"
          xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul" >
-	 <script src="overlay.js">
-	 </script>
+	 <script src="overlay.js"></script>
     <vbox> 
 	   	<hbox>
 			<textbox id="search-tabs-text-box" label="Search Item"  /> 
@@ -17,9 +16,8 @@
 		<description>Search for text across all tabs. Click on any of the results below to go to that tab.</description>		
 	</vbox>
 	<splitter style="cursor:default;"/>
-	<div id="search-contents"> 
-	</div>
-	<vbox>
+	<vbox id="search-contents"></vbox>
+	<!--<vbox>
 		<hbox>A new sun rises, a new tab result here.</hbox>
 		<hbox>
 			<html:a href="http://yahoo.com/">Yahoo!</html:a>
@@ -34,7 +32,7 @@
 			<html:br />
 			<image class="save-to-evernote" src="images/save_16x16.png" />
 		</hbox>
-	</vbox>
+	</vbox>-->
 
 </page>
 </window>

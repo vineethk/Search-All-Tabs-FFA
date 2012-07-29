@@ -9,9 +9,26 @@ var SATO = {
   performSearch: function() {
     var searchStr = document.getElementById("search-tabs-text-box").value;
     // 1. SATO.getTabIndicesWithSearchTerms will give an array of indices
+    var searchTabs = SATO.getTabIndicesWithSearchTerms(searchStr);
+
+    
     // 2. getGBrowser().getBrowserAtIndex(..) for each of those numbers will give browser elements
+    //    Display all the result tabs
+    for(var iter = 0; iter < searchTabs.length; ++iter) {
+      document.getElementById("search-contents").textContent += SATO.getTabResultCard(iter) + "<br>";
+      SATO.getTabResultCard(iter);
+
+    }
+    
     //    one can call .contentDocument.title/location etc to get information about that tab
     // 3. getGBrowser().selectTabAtIndex(..) will go to that tab 
+   
+  },
+
+  getTabResultCard : function(tabIndex) {
+    var gBrowserContent = SATO.getGBrowser().getBrowserAtIndex(tabIndex+1).contentDocument;
+
+    return gBrowserContent.title + " | " + gBrowserContent.domain + " | " + gBrowserContent.location;    
   },
 
   // returns a gBrowser

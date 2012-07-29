@@ -1,6 +1,7 @@
 content	helloworld	content/
-overlay	chrome://browser/content/browser.xul	chrome://helloworld/content/overlay.xul
+content	helloworld	content/ contentaccessible=yes
 
+overlay	chrome://browser/content/browser.xul	chrome://helloworld/content/overlay.xul
 locale	helloworld	en-US	locale/en-US/
 
 skin	helloworld	classic/1.0	skin/

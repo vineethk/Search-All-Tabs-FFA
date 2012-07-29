@@ -10,14 +10,14 @@ var SATO = {
     var searchStr = document.getElementById("search-tabs-text-box").value;
     // 1. SATO.getTabIndicesWithSearchTerms will give an array of indices
     var searchTabs = SATO.getTabIndicesWithSearchTerms(searchStr);
-
+    SATO.debug(searchTabs);
     
     // 2. getGBrowser().getBrowserAtIndex(..) for each of those numbers will give browser elements
     //    Display all the result tabs
     for(var iter = 0; iter < searchTabs.length; ++iter) {
-      document.getElementById("search-contents").textContent += SATO.getTabResultCard(iter) + "<br>";
-      SATO.getTabResultCard(iter);
-
+      //document.getElementById("search-contents").textContent += SATO.getTabResultCard(iter) + "<br>";
+      SATO.setTabResultCard(iter);
+      SATO.debug("iter : " + iter);
     }
     
     //    one can call .contentDocument.title/location etc to get information about that tab
@@ -25,10 +25,50 @@ var SATO = {
    
   },
 
-  getTabResultCard : function(tabIndex) {
+// (wmsuman) TODO: This is too bulky. Fix this 
+  setTabResultCard : function(tabIndex) {
     var gBrowserContent = SATO.getGBrowser().getBrowserAtIndex(tabIndex+1).contentDocument;
+    var searchContentsContainer = document.getElementById("search-contents");
 
-    return gBrowserContent.title + " | " + gBrowserContent.domain + " | " + gBrowserContent.location;    
+    // Create a container around each tab result card
+    var tabResultContainer = gBrowserContent.createElement("vbox");
+    tabResultContainer.setAttribute("class", "tab-result-container");
+    searchContentsContainer.appendChild(tabResultContainer);
+
+    // Create the DOM element for title
+    var titleP = gBrowserContent.createElement("description");
+    titleP.setAttribute("class","resultTabTitle");
+    titleP.textContent = gBrowserContent.title;
+    SATO.debug("p : " + titleP.textContent);
+    tabResultContainer.appendChild(titleP);
+
+    // Create the DOM element for location
+    var locationP = gBrowserContent.createElement("a");
+    locationP.setAttribute("class","resultTabLocation");
+    locationP.setAttribute("target","_blank"); // (wmsuman) TODO : figure out why anchor is not working.
+    locationP.textContent = gBrowserContent.location;
+    SATO.debug("lp : " + locationP.textContent);
+    tabResultContainer.appendChild(locationP);  
+
+    // Container for sharing options
+    var tabResultOptions = gBrowserContent.createElement("vbox");
+    tabResultOptions.setAttribute("class", "options-container");
+    tabResultContainer.appendChild(tabResultOptions);
+
+    // Create the DOM element for sharing using Evernote
+    var addToEvernoteImg = gBrowserContent.createElement("img");
+    addToEvernoteImg.setAttribute("src","images/add_20x20.png");
+    tabResultOptions.appendChild(addToEvernoteImg);
+
+   // Create the DOM element for sharing using 
+    var emailImg = gBrowserContent.createElement("img");
+    emailImg.setAttribute("src","images/email_20x20.png");
+    tabResultOptions.appendChild(emailImg);
+
+    // Create the DOM element for 
+    var headToTabImg = gBrowserContent.createElement("img");
+    headToTabImg.setAttribute("src","images/arrow_right_20x20.png");
+    tabResultOptions.appendChild(headToTabImg); 
   },
 
   // returns a gBrowser

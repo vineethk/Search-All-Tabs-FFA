@@ -12,14 +12,28 @@
 	min-width:250px;
 }
 
+.tab-result-container {
+}
+
+.tab-result-container:hover {
+	color: blue !important;
+}
+
 .resultTabTitle {
 	display:block;
 	color: gray;
-	padding:5px;
+	padding: 4px;
 }
 
 .resultTabLocation {
 	display :block;
-	color: red;
-	padding:5px;
+	color: red;	
+	padding: 4px;	
+}
+
+.options-container {
+	display: block;
+	width:100%;
+	text-align: right;
+	border-bottom: 1px solid #dcdcdc;
 }

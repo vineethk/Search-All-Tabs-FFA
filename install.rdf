@@ -8,6 +8,7 @@
     <em:name>Search extension for Firefox</em:name>
     <em:version>1.0</em:version>
     <em:description>Demo extension.</em:description>
+    <em:optionsURL>chrome://helloworld/content/options.xul</em:optionsURL>  
     <em:creator>Vineeth Kashyap</em:creator>
     <!-- optional items -->
     <em:contributor>Suman SWM</em:contributor>

@@ -1,8 +1,42 @@
 // the Search All Tabs Object
 // used as a namespace, so that we don't create global variables
 var SATO = {
+  
+  toolbarButtonId : "search-all-tabs-button",
+  toolbarId : "nav-toolbar",
+
   debug: function(str) {
     window.dump(str + "\n");
+  },
+
+  init: function() {
+    var pref = "extensions.searchAllTabs.firstRunDone";
+    var firstRunPref = Application.prefs.get(pref);
+
+    SATO.debug("Prefs value : " + firstRunPref.value);
+
+    if (!firstRunPref.value) {
+      firstRunPref.value = true;
+      // all the rest of the first run code goes here.
+      if (!document.getElementById(SATO.toolbarButtonId)) {
+        var toolbar = document.getElementById(SATO.toolbarId);
+
+        SATO.debug("toolbar : " + toolbar);
+
+        toolbar.insertItem(id, before); 
+        toolbar.setAttribute("currentset", toolbar.currentSet);
+        document.persist(toolbar.id, "currentset");
+
+        if (SATO.toolbarId == "addon-bar")
+            toolbar.collapsed = false;
+      }
+    }
+
+    if (firstRunPref.value) {
+        toolbar.installButton("nav-bar", "search-all-tabs-button");
+        // The "addon-bar" is available since Firefox 4
+        toolbar.installButton("addon-bar", "search-all-tabs-button");
+    }
   },
 
   // entry point 
@@ -154,6 +188,23 @@ var SATO = {
     //     body.offsetWidth;
     // }
 
+  },
+
+  // (wmsuman) : TODO : Handle the button clicks from toolbar. 
+  onToolbarButtonCommand : function(e) {
+    switch(event.button) {
+      case 0:
+        // Left click
+        break;
+      case 1:
+        // Middle click
+        break;
+      case 2:
+        // Right click
+        break;
+    }
   }
 };
 
+// rest of overlay code goes here.  
+window.addEventListener( "load", function(e) { SATO.init(); }, false);

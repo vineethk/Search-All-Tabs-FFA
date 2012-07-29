@@ -27,7 +27,7 @@
 
 .resultTabLocation {
 	display :block;
-	color: red;	
+	color: #E55451;	
 	padding: 4px;	
 }
 
@@ -36,4 +36,8 @@
 	width:100%;
 	text-align: right;
 	border-bottom: 1px solid #dcdcdc;
+}
+
+#search-all-tabs-button {
+  list-style-image: url("chrome://helloworld/content/images/search_16x16.png");
 }

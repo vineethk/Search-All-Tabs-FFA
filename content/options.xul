@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<?xml-stylesheet href="chrome://global/skin/" type="text/css"?>
+ 
+<prefwindow id="searchAllTabs-prefs"
+     title="Search All Tabs Options"
+     xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+ 
+<prefpane id="search-all-tabs-pane" label="Search All Tabs Settings">
+  <preferences>
+    <preference id="pref_symbol" name="extensions.searchAllTabs.firstRunDone" type="boolean"/>
+  </preferences>
+ 
+  <!-- (wmsuman) TODO : Remove this later. Temporary -->
+  <hbox align="center">
+    <label control="symbol" value="Imitate first run"/>
+    <checkbox preference="pref_symbol" id="symbol" />
+  </hbox>
+</prefpane>
+ 
+</prefwindow>

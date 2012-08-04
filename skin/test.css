@@ -1,0 +1,47 @@
+#log-panel {
+  border: 2px solid black;
+  background-color: black;
+  border-radius: 15px;
+  opacity: 0.8;
+}
+
+#log-textbox {
+  font-family: georgia,arial,sans-serif;
+  width: 100px;
+  font-size: 20px;
+  border-radius: 15px;
+  opacity: 1.0;
+}
+
+#log-text{
+  padding: 3px;
+  color:white;
+  border: 8px solid black;
+  font-family: georgia,arial,sans-serif;
+  font-size: 10px;
+}
+
+#found-title {
+  font-family: georgia,arial,sans-serif;
+  font-size: 18px;
+  text-overflow: clip;
+  overflow: hidden;
+  width: 100px;
+  height: 25px;
+  margin-right: 15px;
+  margin-bottom: 15px;
+  float: left;
+  letter-spacing: normal;
+  word-spacing: 0px;
+  word-wrap: normal;
+  background-origin: padding-box;
+  direction: ltr;
+  text-indent: 0px; 
+  border: 4px solid rgb(230,230,230);
+  box-shadow: 0px 2px 6px rgb(150, 150, 150);
+  text-align: left;
+  background-color: rgb(250, 250, 250);
+  color: rgb(68, 68, 68);
+  line-height: 120%;
+  border-radius: 15px;
+}

@@ -39,4 +39,23 @@
                  sidebartitle="&emptysidebar.title;"
                  oncommand="toggleSidebar('viewEmptySidebar');" />
   </broadcasterset>
+
+  
+   <vbox>
+   	<panel id="log-panel" titlebar="normal" label="Search All Tabs" width="450">
+		<textbox id="log-textbox"  value="" onkeypress="SATO.keyPressed(event);"/>
+		<div height="15px"/>
+		<vbox id="search-results">
+		</vbox>
+	</panel>
+   </vbox>
+
+  <script src="overlay.js"> </script>
+
+  <keyset>
+	<key id="search-all-key" modifiers="control shift" key="f" oncommand="SATO.showPanel();"/>
+  </keyset>
+  <menupopup id="menu_ToolsPopup">
+	<menuitem id="skeleton-menuitem" oncommand="SATO.showPanel();" label="Search All Tabs" key="search-all-key"/>
+  </menupopup>
 </overlay>

@@ -1,111 +1,71 @@
 // the Search All Tabs Object
 // used as a namespace, so that we don't create global variables
+
+// UI inspired by: https://abcdefu.wordpress.com/2008/07/25/writing-beautiful-ui-with-xul/
 var SATO = {
   
-  toolbarButtonId : "search-all-tabs-button",
-  toolbarId : "nav-toolbar",
-
   debug: function(str) {
     window.dump(str + "\n");
   },
 
-  init: function() {
-    var pref = "extensions.searchAllTabs.firstRunDone";
-    var firstRunPref = Application.prefs.get(pref);
-
-    SATO.debug("Prefs value : " + firstRunPref.value);
-
-    if (!firstRunPref.value) {
-      firstRunPref.value = true;
-      // all the rest of the first run code goes here.
-      if (!document.getElementById(SATO.toolbarButtonId)) {
-        var toolbar = document.getElementById(SATO.toolbarId);
-
-        SATO.debug("toolbar : " + toolbar);
-
-        toolbar.insertItem(id, before); 
-        toolbar.setAttribute("currentset", toolbar.currentSet);
-        document.persist(toolbar.id, "currentset");
-
-        if (SATO.toolbarId == "addon-bar")
-            toolbar.collapsed = false;
-      }
-    }
-
-    if (firstRunPref.value) {
-        toolbar.installButton("nav-bar", "search-all-tabs-button");
-        // The "addon-bar" is available since Firefox 4
-        toolbar.installButton("addon-bar", "search-all-tabs-button");
+  inspect: function(obj) {
+    for (var i in obj) {
+      SATO.debug(i + ": " + obj[i]);
     }
   },
+  
+  getLeftTop: function(w, h) {
+    var left = (screen.width/2)-(w/2);
+    var top = (screen.height/2)-(h/2);
+    return [left, top];
+  },
 
+  showPanel: function() {
+    // TODO: find a better position to place this at
+    document.getElementById('log-panel').openPopup(document.getElementById("content"));
+    document.getElementById('log-textbox').focus();
+  },
+
+  keyPressed: function(evt) {
+    if (evt.keyCode === 13) {
+      SATO.performSearch();
+    }  
+  },
+  
+  clearAllEntries: function(node) {
+    while (node.hasChildNodes()) {
+      node.removeChild(node.lastChild);
+    }
+  },
+  
+  createEntry: function(node, str, i, url) {
+    var entry = document.createElement("button");
+    entry.setAttribute("id", "found-title");
+    entry.setAttribute("label", str);
+    entry.onclick = function() { 
+      gBrowser.selectTabAtIndex(i);
+      document.getElementById('log-panel').hidePopup();
+    };
+    // TODO: have the tooltip include number of instances of searchstr found
+    entry.setAttribute("tooltiptext", url);
+    node.appendChild(entry);  
+  },
+  
   // entry point 
   performSearch: function() {
-    var searchStr = document.getElementById("search-tabs-text-box").value;
-    // 1. SATO.getTabIndicesWithSearchTerms will give an array of indices
+    
+    var searchStr = document.getElementById("log-textbox").mInputField.value;
     var searchTabs = SATO.getTabIndicesWithSearchTerms(searchStr);
-    SATO.debug(searchTabs);
+    var searchParentUI = document.getElementById("search-results");
+    SATO.clearAllEntries(searchParentUI);
     
-    // 2. getGBrowser().getBrowserAtIndex(..) for each of those numbers will give browser elements
-    //    Display all the result tabs
     for(var iter = 0; iter < searchTabs.length; ++iter) {
-      //document.getElementById("search-contents").textContent += SATO.getTabResultCard(iter) + "<br>";
-      SATO.setTabResultCard(iter);
-      SATO.debug("iter : " + iter);
-    }
-    
-    //    one can call .contentDocument.title/location etc to get information about that tab
-    // 3. getGBrowser().selectTabAtIndex(..) will go to that tab 
-   
+      var curDoc = gBrowser.getBrowserAtIndex(searchTabs[iter]).contentDocument;
+      SATO.createEntry(searchParentUI, curDoc.title, searchTabs[iter], curDoc.location.href);
+    }   
   },
 
-// (wmsuman) TODO: This is too bulky. Fix this 
-  setTabResultCard : function(tabIndex) {
-    var gBrowserContent = SATO.getGBrowser().getBrowserAtIndex(tabIndex+1).contentDocument;
-    var searchContentsContainer = document.getElementById("search-contents");
-
-    // Create a container around each tab result card
-    var tabResultContainer = gBrowserContent.createElement("vbox");
-    tabResultContainer.setAttribute("class", "tab-result-container");
-    searchContentsContainer.appendChild(tabResultContainer);
-
-    // Create the DOM element for title
-    var titleP = gBrowserContent.createElement("description");
-    titleP.setAttribute("class","resultTabTitle");
-    titleP.textContent = gBrowserContent.title;
-    SATO.debug("p : " + titleP.textContent);
-    tabResultContainer.appendChild(titleP);
-
-    // Create the DOM element for location
-    var locationP = gBrowserContent.createElement("a");
-    locationP.setAttribute("class","resultTabLocation");
-    locationP.setAttribute("target","_blank"); // (wmsuman) TODO : figure out why anchor is not working.
-    locationP.textContent = gBrowserContent.location;
-    SATO.debug("lp : " + locationP.textContent);
-    tabResultContainer.appendChild(locationP);  
-
-    // Container for sharing options
-    var tabResultOptions = gBrowserContent.createElement("vbox");
-    tabResultOptions.setAttribute("class", "options-container");
-    tabResultContainer.appendChild(tabResultOptions);
-
-    // Create the DOM element for sharing using Evernote
-    var addToEvernoteImg = gBrowserContent.createElement("img");
-    addToEvernoteImg.setAttribute("src","images/add_20x20.png");
-    tabResultOptions.appendChild(addToEvernoteImg);
-
-   // Create the DOM element for sharing using 
-    var emailImg = gBrowserContent.createElement("img");
-    emailImg.setAttribute("src","images/email_20x20.png");
-    tabResultOptions.appendChild(emailImg);
-
-    // Create the DOM element for 
-    var headToTabImg = gBrowserContent.createElement("img");
-    headToTabImg.setAttribute("src","images/arrow_right_20x20.png");
-    tabResultOptions.appendChild(headToTabImg); 
-  },
-
-  // returns a gBrowser
+  // returns a gBrowser: keeping it for legacy
   getGBrowser: function() {
     var mainWindow = window.QueryInterface(Components.interfaces.nsIInterfaceRequestor)  
                        .getInterface(Components.interfaces.nsIWebNavigation)  
@@ -131,9 +91,12 @@ var SATO = {
   // one gets the browser element of a tab that has the searchStr
   getTabIndicesWithSearchTerms: function(searchStr) {
     var successTabs = [];
-    var gBrowser = SATO.getGBrowser();
     for (var iter = 0; iter < gBrowser.browsers.length; ++iter) {
-      if (SATO.hasSearchItem(gBrowser.getBrowserAtIndex(iter).contentDocument, searchStr)) {
+      var curBrowser = gBrowser.getBrowserAtIndex(iter);
+       
+      if (curBrowser.contentDocument.title.indexOf(searchStr) != -1 ||
+          curBrowser.contentDocument.location.href.indexOf(searchStr) != -1 ||
+          SATO.hasSearchItem(gBrowser.getBrowserAtIndex(iter), searchStr)) {
         successTabs.push(iter);
       }
     }
@@ -142,7 +105,9 @@ var SATO = {
   
   // code modifed from this source:
   // http://www.borngeek.com/2011/10/03/using-the-nsifind-interface/
-  hasSearchItem: function(doc, searchStr) {
+  hasSearchItem: function(b, searchStr) {
+    
+    var doc = b.contentDocument;
     var body = doc.body; // Get a reference to the body element
     var term = searchStr;
     
@@ -188,23 +153,7 @@ var SATO = {
     //     body.offsetWidth;
     // }
 
-  },
-
-  // (wmsuman) : TODO : Handle the button clicks from toolbar. 
-  onToolbarButtonCommand : function(e) {
-    switch(event.button) {
-      case 0:
-        // Left click
-        break;
-      case 1:
-        // Middle click
-        break;
-      case 2:
-        // Right click
-        break;
-    }
   }
+
 };
 
-// rest of overlay code goes here.  
-window.addEventListener( "load", function(e) { SATO.init(); }, false);

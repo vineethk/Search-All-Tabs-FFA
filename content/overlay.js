@@ -20,9 +20,17 @@ var SATO = {
     return [left, top];
   },
 
+  getCenter: function(w, h) {
+    var x = (screen.width/2)-(w/2);
+    var y = (screen.height/2)-(h/2);
+    return [x, y];
+  },
+
   showPanel: function() {
-    // TODO: find a better position to place this at
-    document.getElementById('log-panel').openPopup(document.getElementById("content"));
+    // Position at the center of the screen
+    // TODO : Figure out a better way to send the height and width of the panel
+    var coordinates = SATO.getCenter(450, 250);
+    document.getElementById('log-panel').openPopupAtScreen(coordinates[0], coordinates[1]);
     document.getElementById('log-textbox').focus();
   },
 
@@ -38,10 +46,11 @@ var SATO = {
     }
   },
   
-  createEntry: function(node, str, i, url) {
+  createEntry: function(node, str, i, url, domain) {
     var entry = document.createElement("button");
     entry.setAttribute("id", "found-title");
     entry.setAttribute("label", str);
+    entry.setAttribute("image","http://"+domain+"/favicon.ico");
     entry.onclick = function() { 
       gBrowser.selectTabAtIndex(i);
       document.getElementById('log-panel').hidePopup();
@@ -61,7 +70,7 @@ var SATO = {
     
     for(var iter = 0; iter < searchTabs.length; ++iter) {
       var curDoc = gBrowser.getBrowserAtIndex(searchTabs[iter]).contentDocument;
-      SATO.createEntry(searchParentUI, curDoc.title, searchTabs[iter], curDoc.location.href);
+      SATO.createEntry(searchParentUI, curDoc.title, searchTabs[iter], curDoc.location.href, curDoc.domain);
     }   
   },
 

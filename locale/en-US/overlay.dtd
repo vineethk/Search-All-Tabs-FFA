@@ -2,3 +2,5 @@
 <!ENTITY emptysidebar.title "Search All Tabs">
 <!ENTITY openEmptySidebar.commandkey "E">
 <!ENTITY openEmptySidebar.modifierskey "control alt">
+<!ENTITY searchPanel.toolbarbuttonlabel "Search All Tabs">
+<!ENTITY searchPanel.toolbarbuttontooltip "Search All Tabs">

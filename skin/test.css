@@ -9,13 +9,14 @@
   border: 2px solid gray;
   background-color: gray;
   border-radius: 8px;
-  opacity: 0.9;
+  opacity: 0.95;
 }
 
 #log-textbox {
   font-family: Source Sans Pro,georgia,arial,sans-serif;
   width: 350px;
-  font-size: 40px;
+  font-size: 32px;
+  padding: 8px;
   border-radius: 15px;
   opacity: 1.0;
 }
@@ -33,5 +34,11 @@
 }
 
 #found-title {
-  background-color: red;
+  height: 50px;
+  -moz-appearance: none;
+  border: 1px solid gray;
+}
+
+#found-title:hover {
+  background-color: #dcdcdc;
 }

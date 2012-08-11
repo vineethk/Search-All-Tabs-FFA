@@ -6,7 +6,7 @@
 }
 
 #log-panel {
-  border: 2px solid gray;
+  border: 3px solid gray;
   background-color: gray;
   border-radius: 8px;
   opacity: 0.95;
@@ -18,7 +18,6 @@
   font-size: 32px;
   padding: 8px;
   border-radius: 15px;
-  opacity: 1.0;
 }
 
 #search-button {
@@ -35,10 +34,36 @@
 
 #found-title {
   height: 50px;
-  -moz-appearance: none;
-  border: 1px solid gray;
+  background-color: #F0F0F0;
+  margin-left: 4px;
+  margin-right: 4px;
+  margin-bottom: 3px;
+  opacity: 0.95;
 }
 
 #found-title:hover {
   background-color: #dcdcdc;
+}
+
+/* TODO : This is hacky css to ensure that favicon looks good. Fix it */
+.entry-favicon {
+  padding-top:17px;
+  padding-bottom:17px;
+  padding-left:10px;
+  min-width:26px;
+}
+
+.entry-titlearea {
+  padding-left:20px;
+  padding-top:2px;
+  color:#202020;
+}
+
+.entry-searchcount {
+  font-size : 250%;
+  color: #7f7f7f;
+}
+
+.entry-url {
+  color: #909090;
 }

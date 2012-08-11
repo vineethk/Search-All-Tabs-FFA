@@ -35,9 +35,9 @@ var SATO = {
   },
 
   keyPressed: function(evt) {
-    if (evt.keyCode === 13) {
+    if (evt.keyCode === 13 || evt.charCode !== null) {
       SATO.performSearch();
-    }  
+    } 
   },
   
   clearAllEntries: function(node) {
@@ -45,19 +45,51 @@ var SATO = {
       node.removeChild(node.lastChild);
     }
   },
-  
-  createEntry: function(node, str, i, url, domain) {
-    var entry = document.createElement("button");
+
+  createEntry: function(node, str, i, href, domain) {
+    /* First element in hbox */
+    var favicon = document.createElement("image");
+    favicon.setAttribute("class", "entry-favicon");
+    favicon.setAttribute("src", "http://"+domain+"/favicon.ico");
+
+    /* Second set of elements of hbox */
+    var titleArea = document.createElement("vbox");
+    titleArea.setAttribute("class", "entry-titlearea");
+
+    var title = document.createElement("description");
+    title.setAttribute("value", str);
+    title.setAttribute("class", "entry-title");
+
+    var url = document.createElement("description");
+    url.setAttribute("value", href);
+    url.setAttribute("class", "entry-url");
+
+    titleArea.appendChild(title);
+    titleArea.appendChild(url);
+
+    var flex = document.createElement("spacer");
+    flex.setAttribute("flex","1");
+
+    /* Third element of hbox */
+    // TODO : Adding dummy count number for now. Need to add tooltip and also retrieve the actual count.
+    var searchCount = document.createElement("description");
+    searchCount.setAttribute("value", "8");
+    searchCount.setAttribute("class", "entry-searchcount");
+
+    var entry = document.createElement("hbox");
     entry.setAttribute("id", "found-title");
-    entry.setAttribute("label", str);
-    entry.setAttribute("image","http://"+domain+"/favicon.ico");
     entry.onclick = function() { 
       gBrowser.selectTabAtIndex(i);
       document.getElementById('log-panel').hidePopup();
     };
-    // TODO: have the tooltip include number of instances of searchstr found
-    entry.setAttribute("tooltiptext", url);
-    node.appendChild(entry);  
+    
+    /* Adding all elements into the hbox container */
+    entry.appendChild(favicon);
+    entry.appendChild(titleArea);
+    entry.appendChild(flex);
+    entry.appendChild(searchCount);
+
+    node.appendChild(entry);
   },
   
   // entry point 

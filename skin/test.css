@@ -12,16 +12,24 @@
   opacity: 0.95;
 }
 
-#log-textbox {
-  font-family: Source Sans Pro,georgia,arial,sans-serif;
-  width: 350px;
-  font-size: 32px;
-  padding: 8px;
-  border-radius: 15px;
+#search-container {
+  background-color: #fff;
+  margin:3px;
 }
 
-#search-button {
-  border: none;
+#log-textbox {
+  font-family: Source Sans Pro,georgia,arial,sans-serif;
+  font-size: 32px;
+   -moz-appearance: none;
+   border:none;
+   min-width:380px;
+}
+
+#clear-button {
+  -moz-appearance: none;
+  background-color: white;
+  border:none;
+  min-width:20px;
 }
 
 #log-text{

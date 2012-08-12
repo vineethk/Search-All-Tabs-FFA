@@ -39,6 +39,15 @@ var SATO = {
       SATO.performSearch();
     } 
   },
+
+  clearEntries : function() {
+    var searchBox = document.getElementById("log-textbox");
+    var searchParentUI = document.getElementById("search-results");
+    SATO.clearAllEntries(searchParentUI);
+    searchBox.value = "";
+    //set focus
+    document.getElementById("log-textbox").focus();
+  },
   
   clearAllEntries: function(node) {
     while (node.hasChildNodes()) {
@@ -57,6 +66,7 @@ var SATO = {
     titleArea.setAttribute("class", "entry-titlearea");
 
     var title = document.createElement("description");
+
     title.setAttribute("value", str);
     title.setAttribute("class", "entry-title");
 

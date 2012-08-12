@@ -9,7 +9,7 @@
 
   <toolbarpalette id="BrowserToolbarPalette">
     <toolbarbutton id="search-all-tabs-button" 
-                   class="toolbarbutton-1"
+                   class="toolbarbutton-1 chromeclass-toolbar-additional"
                    label="&searchPanel.toolbarbuttonlabel;"
                    tooltiptext="&searchPanel.toolbarbuttontooltip;"
                    oncommand="SATO.showPanel();"
@@ -36,10 +36,10 @@
   
    <vbox>
     <panel id="log-panel" titlebar="normal" label="Search All Tabs" width="450">
-  		<hbox>
+  		<hbox id="search-container">
         <textbox id="log-textbox"  value="" onkeypress="SATO.keyPressed(event);"/>
         <spacer flex="1"/>
-        <button id="search-button" oncommand="SATO.performSearch();" image="chrome://helloworld/content/images/search_16x16.png"/>
+        <button id="clear-button" oncommand="SATO.clearEntries();" image="chrome://helloworld/content/images/close-32.png"  />
       </hbox>
   		<div height="15px"/>
   		<vbox id="search-results"></vbox>
@@ -49,9 +49,9 @@
   <script src="overlay.js"> </script>
 
   <keyset>
-	<key id="search-all-key" modifiers="control shift" key="f" oncommand="SATO.showPanel();"/>
+	 <key id="search-all-key" modifiers="control shift" key="f" oncommand="SATO.showPanel();"/>
   </keyset>
   <menupopup id="menu_ToolsPopup">
-	<menuitem id="skeleton-menuitem" oncommand="SATO.showPanel();" label="Search All Tabs" key="search-all-key"/>
+	 <menuitem id="skeleton-menuitem" oncommand="SATO.showPanel();" label="Search All Tabs" key="search-all-key"/>
   </menupopup>
 </overlay>
